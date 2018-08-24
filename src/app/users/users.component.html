@@ -1,0 +1,21 @@
+<div class="header"><h1>Users</h1></div>
+
+<table class="mat-table mat-elevation-z8">
+    <tr class="mat-header-row">
+        <th class="mat-header-cell">ID</th>
+        <th class="mat-header-cell">Name</th>
+        <th class="mat-header-cell">Guest</th>
+        <th class="mat-header-cell">Current Location</th>
+        <th class="mat-header-cell">Device</th>
+        <th class="mat-header-cell">OS (Version)</th>
+    </tr>
+  
+    <tr *ngFor="let user of users" class="mat-row">
+        <td class="mat-cell">{{user.id}}</td>
+        <td class="mat-cell">{{user.name}}</td>
+        <td class="mat-cell">{{user.isGuest}}</td>
+        <td class="mat-cell">{{user.curLocId}} {{user.curLocDesc}}</td>
+        <td class="mat-cell">{{user.deviceModel}}</td>
+        <td class="mat-cell">{{user.deviceOs}} ({{user.deviceVersion}})</td> 
+    </tr>
+  </table>

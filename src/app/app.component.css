@@ -1,0 +1,33 @@
+.example-fill-remaining-space {
+  /* This fills the remaining space, by using flexbox. 
+      Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
+
+.title{
+  width: 9%;
+}
+
+.fix{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+nav a{
+  margin: 0 5px;
+}
+
+.usertools{
+  position: absolute;
+  right: 25px;
+  height: 35px;
+}
+
+.usertools span{
+  float: left;
+  margin: 3px 5px;
+  font-size: 14px;
+}

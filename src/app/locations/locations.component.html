@@ -1,0 +1,21 @@
+<div class="header"><h1>Locations</h1></div>
+
+<table class="mat-table mat-elevation-z8">
+    <tr class="mat-header-row">
+      <th class="mat-header-cell">ID</th>
+      <th class="mat-header-cell">Description</th>
+      <th class="mat-header-cell">Seat</th>
+      <th class="mat-header-cell">Parent</th>
+      <th class="mat-header-cell">Type</th>
+      <th class="mat-header-cell">Status</th>
+    </tr>
+  
+    <tr *ngFor="let location of locations" class="mat-row {{location.status}}">
+      <td class="mat-cell">{{location.id}}</td>
+      <td class="mat-cell">{{location.description}}</td>
+      <td class="mat-cell">{{location.currentSeat}} / {{location.maxSeat}}</td>
+      <td class="mat-cell">{{location.parentId}}</td>
+      <td class="mat-cell">{{location.locationtype}}</td>
+      <td class="mat-cell">{{location.status}}</td>
+    </tr>
+  </table>

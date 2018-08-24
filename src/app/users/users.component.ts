@@ -10,6 +10,8 @@ import { UsersService } from '../users.service';
 export class UsersComponent implements OnInit {
 
   users: User[];
+  locFilter: boolean = false;
+  option: string = 'all';
  
   constructor(private usersService: UsersService) { }
 
@@ -19,6 +21,12 @@ export class UsersComponent implements OnInit {
 
   getUsers(): void {
     this.usersService.getUsers().subscribe(users =>  this.users = users); 
+  }
+
+  locSelect(opt: string): void {
+    this.option = opt;
+    if(opt == "all") this.locFilter = false;
+    else if(opt == "at" || opt == "out") this.locFilter = true;
   }
 
 }

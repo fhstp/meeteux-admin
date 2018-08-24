@@ -12,6 +12,9 @@ import { ActivitiesComponent } from './activities/activities.component';
 import { UsersComponent } from './users/users.component';
 import { MatIconModule} from '@angular/material/icon';
 import { AppRoutingModule } from './/app-routing.module';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import { AppRoutingModule } from './/app-routing.module';
     MatToolbarModule,
     MatChipsModule,
     MatIconModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,16 @@
-<div class="header"><h1>Users</h1></div>
+<div class="header">
+    <h1>Users</h1>
+
+    <div class="headerfilter">
+        <mat-form-field>
+            <mat-select placeholder="User Location">
+            <mat-option (click)="locSelect('all')" value="all">All</mat-option>
+            <mat-option (click)="locSelect('at')" value="at">At a location</mat-option>
+            <mat-option (click)="locSelect('out')" value="out">Out of location</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+</div>
 
 <table class="mat-table mat-elevation-z8">
     <tr class="mat-header-row">
@@ -11,11 +23,13 @@
     </tr>
   
     <tr *ngFor="let user of users" class="mat-row">
-        <td class="mat-cell">{{user.id}}</td>
-        <td class="mat-cell">{{user.name}}</td>
-        <td class="mat-cell">{{user.isGuest}}</td>
-        <td class="mat-cell">{{user.curLocId}} {{user.curLocDesc}}</td>
-        <td class="mat-cell">{{user.deviceModel}}</td>
-        <td class="mat-cell">{{user.deviceOs}} ({{user.deviceVersion}})</td> 
+        <ng-container *ngIf="!locFilter || (option == 'at' && user.curLocId != '') || (option == 'out' && user.curLocId == '')">
+            <td class="mat-cell">{{user.id}}</td>
+            <td class="mat-cell">{{user.name}}</td>
+            <td class="mat-cell">{{user.isGuest}}</td>
+            <td class="mat-cell">{{user.curLocId}} {{user.curLocDesc}}</td>
+            <td class="mat-cell">{{user.deviceModel}}</td>
+            <td class="mat-cell">{{user.deviceOs}} ({{user.deviceVersion}})</td> 
+        </ng-container>
     </tr>
   </table>

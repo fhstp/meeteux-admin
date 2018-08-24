@@ -1,11 +1,18 @@
 .header{
   width: 80%;
-  margin: 20px auto;
+  margin: 40px auto 20px auto;
 }
 
 .header h1{
   color: #999999;
   font-weight: lighter;
+  display: inline;
+}
+
+.headerfilter{
+  float: right;
+  margin-top: -15px;
+  padding: 0;
 }
 
 .offline td.mat-cell:last-child{

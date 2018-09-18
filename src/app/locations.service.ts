@@ -21,4 +21,8 @@ export class LocationsService {
 
     return this.http.get<Location[]>('../php/locations.php');
   } 
+
+  freeSeats(): Observable<Location[]>{
+    return this.http.get<Location[]>('../php/resetLocations.php');
+  } 
 }

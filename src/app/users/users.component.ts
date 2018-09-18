@@ -29,4 +29,8 @@ export class UsersComponent implements OnInit {
     else if(opt == "at" || opt == "out") this.locFilter = true;
   }
 
+  updateTable(): void{
+    this.getUsers();
+  }
+
 }

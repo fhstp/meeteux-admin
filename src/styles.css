@@ -14,10 +14,14 @@ body { margin: 0; font-family: 'Roboto', sans-serif; }
   right: 0;
 }
 
-mat-icon svg{
+mat-icon.med svg{
   width:35px;
   height: 35px;
   margin-right: 50px;
+}
+
+mat-icon.sml svg{
+  width:25px;
 }
 
 td.mat-cell mat-icon svg{

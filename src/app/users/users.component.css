@@ -15,6 +15,14 @@
     padding: 0;
   }
   
+  #buttRefresh{
+    position: fixed;
+    bottom: 20px;
+    right: 3%;
+    background-color: #673ab7;
+    color: #ffffff;
+  }
+  
   .offline td.mat-cell:last-child{
     color: gray;
   }

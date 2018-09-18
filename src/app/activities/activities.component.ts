@@ -39,4 +39,8 @@ export class ActivitiesComponent implements OnInit {
     this.query = value;
   }
 
+  updateTable(): void{
+    this.getActivities();
+  }
+
 }

@@ -15,6 +15,11 @@ import { AppRoutingModule } from './/app-routing.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+
+import { SocketIoModule } from 'ngx-socket-io';
+import { GodSocketService } from './god-socket.service';
+import { GodService } from './god.service';
 
 @NgModule({
   declarations: [
@@ -24,6 +29,7 @@ import { MatInputModule } from '@angular/material/input';
     UsersComponent
   ],
   imports: [
+    SocketIoModule,
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
@@ -35,9 +41,13 @@ import { MatInputModule } from '@angular/material/input';
     AppRoutingModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatMenuModule,
     MatInputModule
   ],
-  providers: [],
+  providers: [
+    GodSocketService,
+    GodService
+  ],
   bootstrap: [AppComponent]
 })
 

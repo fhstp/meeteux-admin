@@ -6,6 +6,7 @@ export const LOCLIST: Location[] = [
         description: 'ExhibitionX', 
         currentSeat: 0,
         maxSeat: 3,
+        seatStatus: 'FREE',
         isStartPoint: 0,
         parentId: 0,
         locationtype: 'loctype',

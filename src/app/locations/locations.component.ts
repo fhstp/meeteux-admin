@@ -10,14 +10,14 @@ import { MatIconRegistry } from '@angular/material';
   styleUrls: ['./locations.component.css']
 })
 export class LocationsComponent implements OnInit {
-  
+
   locations: Location[];
-  filtered: boolean = false;
-  option: string = 'all';
-  timeLeft: number = 10;
+  filtered = false;
+  option = 'all';
+  timeLeft = 10;
   interval;
 
-  constructor(private locationsService: LocationsService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) { 
+  constructor(private locationsService: LocationsService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon('refresh', sanitizer.bypassSecurityTrustResourceUrl('assets/baseline-refresh-24px.svg'));
     iconRegistry.addSvgIcon('reset', sanitizer.bypassSecurityTrustResourceUrl('assets/baseline-lock_open-24px.svg'));
     iconRegistry.addSvgIcon('more', sanitizer.bypassSecurityTrustResourceUrl('assets/baseline-more_vert-24px.svg'));
@@ -29,32 +29,36 @@ export class LocationsComponent implements OnInit {
   }
 
   getLocations(): void {
-    this.locationsService.getLocations().subscribe(locations =>  this.locations = locations); 
+    this.locationsService.establishExhibitConnection();
+    this.locationsService.getLocations().subscribe(locations =>  this.locations = locations);
   }
 
   onSelect(opt: string): void {
     this.option = opt;
-    if(opt == "all") this.filtered = false;
-    else if(opt == "online" || opt == "offline") this.filtered = true;
+    if (opt === 'all') {
+      this.filtered = false;
+    } else if (opt === 'online' || opt === 'offline' || opt === 'free' || opt === 'occupied') {
+      this.filtered = true;
+    }
   }
 
-  updateTable(): void{
+  updateTable(): void {
     this.timeLeft = 10;
     this.getLocations();
   }
 
   startTimer() {
     this.interval = setInterval(() => {
-      if(this.timeLeft > 0) {
+      if (this.timeLeft > 0) {
         this.timeLeft--;
       } else {
         this.timeLeft = 10;
-        this.getLocations();
+        // this.getLocations();
       }
-    },1000)
+    }, 1000);
   }
 
-  freeSeats(): void{
+  freeSeats(): void {
     this.locationsService.freeSeats().subscribe(locations =>  this.locations = locations);
   }
 

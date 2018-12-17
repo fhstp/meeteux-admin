@@ -1,14 +1,11 @@
 import { Injectable } from '@angular/core';
 import {Socket, SocketIoModule} from 'ngx-socket-io';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class GodSocketService extends Socket {
 
   constructor() {
-     //super({ url: 'https://god.meeteux.fhstp.ac.at:3000', options: {secure: true} });
-     super({ url: 'https://localhost:3000', options: {secure: true} });
+    // super({ url: 'http://god.meeteux.fhstp.ac.at:3000', options: {secure: false} });
+    super({ url: 'http://localhost:3000', options: {secure: false} });
   }
-
 }

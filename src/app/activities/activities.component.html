@@ -5,7 +5,6 @@
         <mat-form-field>
             <mat-select placeholder="Filter by">
             <mat-option (click)="filterSelect('all')" value="all">All</mat-option>
-            <mat-option (click)="filterSelect('uId')" value="uId">User id</mat-option>
             <mat-option (click)="filterSelect('uName')" value="uName">User name</mat-option>
             <mat-option (click)="filterSelect('lId')" value="lId">Location id</mat-option>
             <mat-option (click)="filterSelect('lName')" value="lName">Location name</mat-option>
@@ -25,20 +24,20 @@
 <table class="mat-table mat-elevation-z8">
     <tr class="mat-header-row">
         <th class="mat-header-cell">ID</th>
-        <th class="mat-header-cell">Timestamp</th>
         <th class="mat-header-cell center">Liked</th>
-        <th class="mat-header-cell center">Dismissed</th>
+        <th class="mat-header-cell center">Created</th>
+        <th class="mat-header-cell center">Updated</th>
         <th class="mat-header-cell">User</th>
         <th class="mat-header-cell">Location</th>
     </tr>
 
     <tr *ngFor="let activity of activities" class="mat-row">
-        <ng-container *ngIf="!filter || (option == 'uId' && (activity.userId).includes(query)) || (option == 'uName' && (activity.userName).includes(query)) || (option == 'lId' && (activity.locationId).includes(query)) || (option == 'lName' && (activity.locationDesc).includes(query))">
+        <ng-container *ngIf="!filter || (option == 'uName' && (activity.userName).includes(query)) || (option == 'lId' && (activity.locationId).includes(query)) || (option == 'lName' && (activity.locationDesc).includes(query))">
             <td class="mat-cell">{{activity.id}}</td>
-            <td class="mat-cell">{{activity.timestamp}}</td>
             <td class="mat-cell"><mat-icon svgIcon="thumbs-up" class="liked{{activity.liked}}"></mat-icon></td>
-            <td class="mat-cell"><mat-icon svgIcon="visibility-off" class="dismissed{{activity.dismissed}}"></mat-icon></td>
-            <td class="mat-cell">{{activity.userId}} - {{activity.userName}}</td>
+            <td class="mat-cell">{{activity.createdAt}}</td>
+            <td class="mat-cell">{{activity.updatedAt}}</td>
+            <td class="mat-cell">{{activity.userName}}</td>
             <td class="mat-cell">{{activity.locationId}} - {{activity.locationDesc}}</td>
         </ng-container>
     </tr>

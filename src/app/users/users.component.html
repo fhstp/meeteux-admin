@@ -27,7 +27,7 @@
     </tr>
   
     <tr *ngFor="let user of users" class="mat-row">
-        <ng-container *ngIf="!locFilter || (option == 'at' && user.curLocId != '') || (option == 'out' && user.curLocId == '')">
+        <ng-container *ngIf="!locFilter || (option == 'at' && user.curLocDesc) || (option == 'out' && !user.curLocDesc)">
             <td class="mat-cell">{{user.id}}</td>
             <td class="mat-cell">{{user.name}}</td>
             <td class="mat-cell">{{user.isGuest}}</td>

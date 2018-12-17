@@ -3,7 +3,6 @@ export class Location {
     description: string;
     currentSeat: number;
     maxSeat: number;
-    seatStatus: string;
     isStartPoint: number;
     parentId: number;
     locationtype: string;

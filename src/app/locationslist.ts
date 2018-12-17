@@ -1,15 +1,7 @@
 import { Location } from './location';
+import { User } from './user';
+import { Activity } from './activity';
 
-export const LOCLIST: Location[] = [
-    { 
-        id: 10, 
-        description: 'ExhibitionX', 
-        currentSeat: 0,
-        maxSeat: 3,
-        seatStatus: 'FREE',
-        isStartPoint: 0,
-        parentId: 0,
-        locationtype: 'loctype',
-        status: 'offline'
-    }
-];
+export let LOCLIST: Location[] = [];
+export let USRLIST: User[] = [];
+export let LOGLIST: Activity[] = [];

@@ -10,7 +10,7 @@ import { MatIconRegistry } from '@angular/material';
 export class AppComponent {
   title = 'meeteux-admin';
 
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) { 
+  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon('account-circle', sanitizer.bypassSecurityTrustResourceUrl('assets/baseline-account_circle-24px.svg'));
   }
 }

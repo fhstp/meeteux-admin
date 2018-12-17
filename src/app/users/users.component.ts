@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../user';
 import { UsersService } from '../users.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material';
+import { LocationsService } from '../locations.service';
 
 @Component({
   selector: 'app-users',
@@ -10,26 +13,35 @@ import { UsersService } from '../users.service';
 export class UsersComponent implements OnInit {
 
   users: User[];
-  locFilter: boolean = false;
-  option: string = 'all';
- 
-  constructor(private usersService: UsersService) { }
+  locFilter = false;
+  option = 'all';
+
+  constructor(private usersService: UsersService,
+    private locationsService: LocationsService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+    iconRegistry.addSvgIcon('refresh', sanitizer.bypassSecurityTrustResourceUrl('assets/baseline-refresh-24px.svg'));
+    iconRegistry.addSvgIcon('reset', sanitizer.bypassSecurityTrustResourceUrl('assets/baseline-lock_open-24px.svg'));
+    iconRegistry.addSvgIcon('more', sanitizer.bypassSecurityTrustResourceUrl('assets/baseline-more_vert-24px.svg'));
+  }
 
   ngOnInit() {
     this.getUsers();
   }
 
   getUsers(): void {
-    this.usersService.getUsers().subscribe(users =>  this.users = users); 
+    this.usersService.establishExhibitConnection();
+    this.usersService.getUsers().subscribe(users =>  this.users = users);
   }
 
   locSelect(opt: string): void {
     this.option = opt;
-    if(opt == "all") this.locFilter = false;
-    else if(opt == "at" || opt == "out") this.locFilter = true;
+    if (opt === 'all') {
+      this.locFilter = false;
+    } else if (opt === 'at' || opt === 'out') {
+      this.locFilter = true;
+    }
   }
 
-  updateTable(): void{
+  updateTable(): void {
     this.getUsers();
   }
 

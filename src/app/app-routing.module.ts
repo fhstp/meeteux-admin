@@ -1,8 +1,8 @@
-import { NgModule }             from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LocationsComponent }      from './locations/locations.component';
-import { UsersComponent }      from './users/users.component';
-import { ActivitiesComponent }      from './activities/activities.component';
+import { LocationsComponent } from './locations/locations.component';
+import { UsersComponent } from './users/users.component';
+import { ActivitiesComponent } from './activities/activities.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/locations', pathMatch: 'full' },

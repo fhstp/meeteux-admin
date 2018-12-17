@@ -7,17 +7,29 @@
         <mat-option (click)="onSelect('all')" value="all">All</mat-option>
         <mat-option (click)="onSelect('online')" value="online">Online</mat-option>
         <mat-option (click)="onSelect('offline')" value="offline">Offline</mat-option>
+        <mat-option (click)="onSelect('free')" value="free">Free</mat-option>
+        <mat-option (click)="onSelect('occupied')" value="occupied">Occupied</mat-option>
       </mat-select>
     </mat-form-field>
+
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="topMenu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item disabled>
+        <mat-icon>add</mat-icon>
+        <span>Add Location</span>
+      </button>
+      <button (click)="freeSeats()" mat-menu-item>
+        <mat-icon>lock_open</mat-icon>
+        <span>Free All Seats</span>
+      </button>
+    </mat-menu>
   </div>
 </div>
 
 <button (click)="updateTable()" mat-fab id="buttRefresh">
   <mat-icon class="sml" svgIcon="refresh"></mat-icon>
-</button>
-
-<button (click)="freeSeats()" mat-mini-fab id="buttReset">
-  <mat-icon class="sml" svgIcon="reset"></mat-icon>
 </button>
 
 <table class="mat-table mat-elevation-z8">
@@ -30,12 +42,12 @@
     <th class="mat-header-cell">Status</th>
     <th class="mat-header-cell"></th>
   </tr>
-  
+
   <tr *ngFor="let location of locations" class="mat-row {{location.status}}">
     <ng-container *ngIf="!filtered || location.status == option">
       <td class="mat-cell">{{location.id}}</td>
       <td class="mat-cell">{{location.description}}</td>
-      <td class="mat-cell seatStatus">{{location.seatStatus}}</td>
+      <td class="mat-cell">{{location.currentSeat}} / {{location.maxSeat}}</td>
       <td class="mat-cell">{{location.parentId}}</td>
       <td class="mat-cell">{{location.locationtype}}</td>
       <td class="mat-cell statusval">{{location.status}}</td>
@@ -47,10 +59,6 @@
               <button mat-menu-item disabled>
                 <mat-icon>edit</mat-icon>
                 <span>Edit</span>
-              </button>
-              <button mat-menu-item disabled>
-                <mat-icon>lock_open</mat-icon>
-                <span>Free Seats</span>
               </button>
             </mat-menu>
       </td>

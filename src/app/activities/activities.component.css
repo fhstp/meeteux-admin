@@ -60,6 +60,6 @@
     background-color: aliceblue;
   }
 
-.dismissed0, .liked0{
+.likedfalse{
   opacity: 0.2;
 }

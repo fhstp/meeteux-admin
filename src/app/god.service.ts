@@ -11,6 +11,8 @@ export class GodService {
       this._connection.disconnect();
     }
     this._connection = new GodSocketService();
+
+    this._connection.on('news', data => { console.log(data);  });
   }
 
   get connection(): GodSocketService {
@@ -19,22 +21,19 @@ export class GodService {
 
 
   public getAllLocations(): any {
-    let statusType: string[];
-    statusType = ['online', 'offline', 'free', 'occupied'];
-    let locType: string[];
-    locType = ['room', 'activeExhibitOn', 'activeExhibitAt', 'passiveExhibit',
-    'door', 'activeExhibitBehaviorAt', 'activeExhibitBehaviorOn'];
+    enum statusType { online, offline, free, occupied }
+    enum locType { room, activeExhibitOn, activeExhibitAt, passiveExhibit, door, activeExhibitBehaviorAt, activeExhibitBehaviorOn }
 
-    this._connection.emit('getLocationData');
+    this._connection.emit('getLocationData', );
 
-    this._connection.on('getLocationDataResult', locations => {
+    this._connection.on('getLocationaDataResult', locations => {
       const loc = locations.data;
       const message = locations.message;
       if (message.code > 299) {
         console.log('getAllLocations: FAILED');
         return;
       } else {
-        console.log('getAllLocations');
+        console.log(locations);
         LOCLIST.length = 0;
         locations.data.forEach(location => {
           if (!location.currentSeat) { location.currentSeat = 0; }
@@ -101,6 +100,7 @@ export class GodService {
         console.log('getAllactivities: FAILED');
         return;
       } else {
+        console.log(activities);
         LOGLIST.length = 0;
         activities.data.forEach(activity => {
           LOGLIST.push({

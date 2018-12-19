@@ -24,11 +24,11 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.usersService.establishExhibitConnection();
     this.getUsers();
   }
 
   getUsers(): void {
-    this.usersService.establishExhibitConnection();
     this.usersService.getUsers().subscribe(users =>  this.users = users);
   }
 

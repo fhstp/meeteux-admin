@@ -24,12 +24,12 @@ export class LocationsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.locationsService.establishExhibitConnection();
     this.getLocations();
     this.startTimer();
   }
 
   getLocations(): void {
-    this.locationsService.establishExhibitConnection();
     this.locationsService.getLocations().subscribe(locations =>  this.locations = locations);
   }
 

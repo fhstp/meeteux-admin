@@ -22,11 +22,11 @@ export class ActivitiesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.activitiesService.establishExhibitConnection();
     this.getActivities();
   }
 
   getActivities(): void {
-    this.activitiesService.establishExhibitConnection();
     this.activitiesService.getActivities().subscribe(activities =>  this.activities = activities);
   }
 

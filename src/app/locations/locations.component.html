@@ -20,7 +20,7 @@
         <mat-icon>add</mat-icon>
         <span>Add Location</span>
       </button>
-      <button (click)="freeSeats()" mat-menu-item>
+      <button (click)="freeAllSeats()" mat-menu-item>
         <mat-icon>lock_open</mat-icon>
         <span>Free All Seats</span>
       </button>
@@ -59,6 +59,10 @@
               <button mat-menu-item disabled>
                 <mat-icon>edit</mat-icon>
                 <span>Edit</span>
+              </button>
+              <button *ngIf="location.locationtype == 'activeExhibitAt' || location.locationtype == 'activeExhibitBehaviorAt'" (click)="freeSeats(location.id)" mat-menu-item>
+                <mat-icon>lock_open</mat-icon>
+                <span>Free Seats</span>
               </button>
             </mat-menu>
       </td>

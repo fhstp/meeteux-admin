@@ -33,7 +33,6 @@ export class GodService {
         console.log('getAllLocations: FAILED');
         return;
       } else {
-        console.log(locations);
         LOCLIST.length = 0;
         locations.data.forEach(location => {
           if (!location.currentSeat) { location.currentSeat = 0; }
@@ -54,6 +53,36 @@ export class GodService {
     });
   }
 
+  public resetLocations(id: any): void {
+
+    this._connection.emit('resetLocationData', id);
+
+    this._connection.on('resetLocationDataResult', message => {
+      if (message.message.code > 299) {
+        console.log('resetLocations: FAILED');
+        return;
+      }
+
+      console.log(message.message.message);
+      this._connection.removeAllListeners('resetLocationDataResult');
+    });
+  }
+
+  public resetAllLocations(): void {
+
+    this._connection.emit('resetAllLocationData', );
+
+    this._connection.on('resetAllLocationDataResult', message => {
+      if (message.message.code > 299) {
+        console.log('resetAllLocations: FAILED');
+        return;
+      }
+
+      console.log(message.message.message);
+      this._connection.removeAllListeners('resetAllLocationDataResult');
+    });
+  }
+
   public getAllUsers(): any {
     this._connection.emit('getUserData', );
 
@@ -65,7 +94,6 @@ export class GodService {
         console.log('getAllUsers: FAILED');
         return;
       } else {
-        console.log(users);
         USRLIST.length = 0;
         let idx = 1;
         users.data.forEach(user => {
@@ -100,7 +128,6 @@ export class GodService {
         console.log('getAllactivities: FAILED');
         return;
       } else {
-        console.log(activities);
         LOGLIST.length = 0;
         activities.data.forEach(activity => {
           LOGLIST.push({

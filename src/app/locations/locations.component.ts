@@ -58,8 +58,14 @@ export class LocationsComponent implements OnInit {
     }, 1000);
   }
 
-  freeSeats(): void {
-    this.locationsService.freeSeats().subscribe(locations =>  this.locations = locations);
+  freeSeats(id: any): void {
+    this.locationsService.freeSeats(id);
+    this.getLocations();
+  }
+
+  freeAllSeats(): void {
+    this.locationsService.freeAllSeats();
+    this.getLocations();
   }
 
 }

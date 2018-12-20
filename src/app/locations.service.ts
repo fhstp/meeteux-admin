@@ -25,8 +25,11 @@ export class LocationsService {
     return of(LOCLIST);
   }
 
-  freeSeats(): Observable<Location[]> {
-    return this.godService.getAllLocations();
-     // return this.http.get<Location[]>('../php/resetLocations.php');
+  freeSeats(id: any): void {
+    this.godService.resetLocations(id);
+  }
+
+  freeAllSeats(): void {
+    this.godService.resetAllLocations();
   }
 }

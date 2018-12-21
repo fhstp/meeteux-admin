@@ -5,3 +5,4 @@ import { Activity } from './activity';
 export let LOCLIST: Location[] = [];
 export let USRLIST: User[] = [];
 export let LOGLIST: Activity[] = [];
+export let MSGLIST: String[] = [];

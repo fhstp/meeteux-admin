@@ -17,11 +17,13 @@ export class ActivitiesService {
   constructor(private http: HttpClient, private godService: GodService) { }
 
   public establishExhibitConnection(): void {
-    this.godService.openNewExhibitConnection();
+    if (!this.godService.connection()) {
+      this.godService.openNewExhibitConnection();
+    }
   }
 
-  getActivities(): Observable<Activity[]> {
-    this.godService.getAllActivities();
+  getActivities(mode: string): Observable<Activity[]> {
+    this.godService.getAllActivities(mode);
     return of(LOGLIST);
   }
 }

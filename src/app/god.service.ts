@@ -1,26 +1,41 @@
 import { Injectable } from '@angular/core';
-import {GodSocketService} from './god-socket.service';
-import { LOCLIST, USRLIST, LOGLIST } from './locationslist';
+import { GodSocketService } from './god-socket.service';
+import { LOCLIST, USRLIST, LOGLIST, MSGLIST } from './locationslist';
+import { MatSnackBar } from '@angular/material';
+import { SnackBarComponent } from './snack-bar/snack-bar.component';
 
 @Injectable()
 export class GodService {
   private _connection: GodSocketService;
 
+  constructor(public snackBar: MatSnackBar) { }
+
   public openNewExhibitConnection(): void {
-    if (this._connection) {
-      this._connection.disconnect();
-    }
+    if (this._connection) { this._connection.disconnect(); }
     this._connection = new GodSocketService();
 
-    this._connection.on('news', data => { console.log(data);  });
+    this._connection.on('news', data => {
+      this.displayMessage(data.text, false);
+    });
+
+    this._connection.on('disconnect', () => {
+      this.displayMessage('Lost connection to Server', true);
+    });
+
+    this._connection.on('reconnect', () => {
+      this.displayMessage('Reconnected to Server', true);
+    });
   }
 
-  get connection(): GodSocketService {
-    return this._connection;
+  public connection(): boolean {
+    if (this._connection) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
-
-  public getAllLocations(): any {
+  public getAllLocations(mode: string): any {
     enum statusType { online, offline, free, occupied }
     enum locType { room, activeExhibitOn, activeExhibitAt, passiveExhibit, door, activeExhibitBehaviorAt, activeExhibitBehaviorOn }
 
@@ -29,8 +44,9 @@ export class GodService {
     this._connection.on('getLocationaDataResult', locations => {
       const loc = locations.data;
       const message = locations.message;
+
       if (message.code > 299) {
-        console.log('getAllLocations: FAILED');
+        this.displayMessage('(E' + message.code + ') Failed to get locations', true);
         return;
       } else {
         LOCLIST.length = 0;
@@ -49,7 +65,8 @@ export class GodService {
         });
       }
 
-       this._connection.removeAllListeners('getLocationDataResult');
+      if (mode === 'update') { this.displayMessage('Updated Locations', true); }
+      this._connection.removeAllListeners('getLocationDataResult');
     });
   }
 
@@ -59,11 +76,10 @@ export class GodService {
 
     this._connection.on('resetLocationDataResult', message => {
       if (message.message.code > 299) {
-        console.log('resetLocations: FAILED');
+        this.displayMessage('(E' + message.message.code + ') Failed reseting tables', true);
         return;
       }
-
-      console.log(message.message.message);
+      this.displayMessage(message.message.message, true);
       this._connection.removeAllListeners('resetLocationDataResult');
     });
   }
@@ -74,16 +90,15 @@ export class GodService {
 
     this._connection.on('resetAllLocationDataResult', message => {
       if (message.message.code > 299) {
-        console.log('resetAllLocations: FAILED');
+        this.displayMessage('(E' + message.message.code + ') Failed reseting all tables', true);
         return;
       }
-
-      console.log(message.message.message);
+      this.displayMessage(message.message.message, true);
       this._connection.removeAllListeners('resetAllLocationDataResult');
     });
   }
 
-  public getAllUsers(): any {
+  public getAllUsers(mode: string): any {
     this._connection.emit('getUserData', );
 
     this._connection.on('getUserDataResult', users => {
@@ -91,7 +106,7 @@ export class GodService {
       const message = users.message;
 
       if (message.code > 299) {
-        console.log('getAllUsers: FAILED');
+        this.displayMessage('(E' + message.code + ') Failed when getting users', true);
         return;
       } else {
         USRLIST.length = 0;
@@ -114,18 +129,19 @@ export class GodService {
           idx++;
         });
       }
-
-       this._connection.removeAllListeners('getUserDataResult');
+      if (mode === 'update') { this.displayMessage('Updated Users', true); }
+      this._connection.removeAllListeners('getUserDataResult');
     });
   }
 
-  public getAllActivities(): any {
+  public getAllActivities(mode: string): any {
     this._connection.emit('getActivityData', );
+
     this._connection.on('getActivityDataResult', activities => {
       const loc = activities.data;
       const message = activities.message;
       if (message.code > 299) {
-        console.log('getAllactivities: FAILED');
+        this.displayMessage('(E' + message.code + ') Failed when getting activities', true);
         return;
       } else {
         LOGLIST.length = 0;
@@ -141,8 +157,13 @@ export class GodService {
           });
         });
       }
-
-       this._connection.removeAllListeners('getActivityDataResult');
+      if (mode === 'update') { this.displayMessage('Updated Activities', true); }
+      this._connection.removeAllListeners('getActivityDataResult');
     });
+  }
+
+  public displayMessage(msg: String, display: boolean): void {
+    MSGLIST.push('[' + new Date().toLocaleString() + ']' + msg);
+    if (display) { this.snackBar.openFromComponent(SnackBarComponent, { duration: 1000, }); }
   }
 }

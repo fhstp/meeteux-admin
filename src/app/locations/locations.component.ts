@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Location } from '../location';
 import { LocationsService } from '../locations.service';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -10,7 +10,6 @@ import { MatIconRegistry } from '@angular/material';
   styleUrls: ['./locations.component.css']
 })
 export class LocationsComponent implements OnInit {
-
   locations: Location[];
   filtered = false;
   option = 'all';
@@ -25,12 +24,12 @@ export class LocationsComponent implements OnInit {
 
   ngOnInit() {
     this.locationsService.establishExhibitConnection();
-    this.getLocations();
+    this.getLocations('new');
     this.startTimer();
   }
 
-  getLocations(): void {
-    this.locationsService.getLocations().subscribe(locations =>  this.locations = locations);
+  getLocations(mode: string): void {
+    this.locationsService.getLocations(mode).subscribe(locations =>  this.locations = locations);
   }
 
   onSelect(opt: string): void {
@@ -44,7 +43,7 @@ export class LocationsComponent implements OnInit {
 
   updateTable(): void {
     this.timeLeft = 10;
-    this.getLocations();
+    this.getLocations('update');
   }
 
   startTimer() {
@@ -60,12 +59,11 @@ export class LocationsComponent implements OnInit {
 
   freeSeats(id: any): void {
     this.locationsService.freeSeats(id);
-    this.getLocations();
+    this.getLocations('new');
   }
 
   freeAllSeats(): void {
     this.locationsService.freeAllSeats();
-    this.getLocations();
+    this.getLocations('new');
   }
-
 }

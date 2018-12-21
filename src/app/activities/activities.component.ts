@@ -23,11 +23,11 @@ export class ActivitiesComponent implements OnInit {
 
   ngOnInit() {
     this.activitiesService.establishExhibitConnection();
-    this.getActivities();
+    this.getActivities('new');
   }
 
-  getActivities(): void {
-    this.activitiesService.getActivities().subscribe(activities =>  this.activities = activities);
+  getActivities(mode: string): void {
+    this.activitiesService.getActivities(mode).subscribe(activities =>  this.activities = activities);
   }
 
   filterSelect(opt: string): void {
@@ -44,7 +44,6 @@ export class ActivitiesComponent implements OnInit {
   }
 
   updateTable(): void {
-    this.getActivities();
+    this.getActivities('update');
   }
-
 }

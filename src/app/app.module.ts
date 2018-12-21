@@ -16,10 +16,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { GodSocketService } from './god-socket.service';
 import { GodService } from './god.service';
+import { SnackBarComponent } from './snack-bar/snack-bar.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
@@ -28,7 +31,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     AppComponent,
     LocationsComponent,
     ActivitiesComponent,
-    UsersComponent
+    UsersComponent,
+    SnackBarComponent
   ],
   imports: [
     BrowserModule,
@@ -44,12 +48,15 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     MatFormFieldModule,
     MatSelectModule,
     MatMenuModule,
-    MatInputModule
+    MatInputModule,
+    MatSnackBarModule,
+    MatDialogModule
   ],
   providers: [
     GodSocketService,
     GodService
   ],
+  entryComponents: [ SnackBarComponent ],
   bootstrap: [AppComponent]
 })
 

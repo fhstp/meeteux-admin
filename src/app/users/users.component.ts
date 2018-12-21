@@ -3,7 +3,6 @@ import { User } from '../user';
 import { UsersService } from '../users.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material';
-import { LocationsService } from '../locations.service';
 
 @Component({
   selector: 'app-users',
@@ -16,8 +15,7 @@ export class UsersComponent implements OnInit {
   locFilter = false;
   option = 'all';
 
-  constructor(private usersService: UsersService,
-    private locationsService: LocationsService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+  constructor(private usersService: UsersService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon('refresh', sanitizer.bypassSecurityTrustResourceUrl('assets/baseline-refresh-24px.svg'));
     iconRegistry.addSvgIcon('reset', sanitizer.bypassSecurityTrustResourceUrl('assets/baseline-lock_open-24px.svg'));
     iconRegistry.addSvgIcon('more', sanitizer.bypassSecurityTrustResourceUrl('assets/baseline-more_vert-24px.svg'));
@@ -25,11 +23,11 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     this.usersService.establishExhibitConnection();
-    this.getUsers();
+    this.getUsers('new');
   }
 
-  getUsers(): void {
-    this.usersService.getUsers().subscribe(users =>  this.users = users);
+  getUsers(mode: string): void {
+    this.usersService.getUsers(mode).subscribe(users =>  this.users = users);
   }
 
   locSelect(opt: string): void {
@@ -42,7 +40,6 @@ export class UsersComponent implements OnInit {
   }
 
   updateTable(): void {
-    this.getUsers();
+    this.getUsers('update');
   }
-
 }

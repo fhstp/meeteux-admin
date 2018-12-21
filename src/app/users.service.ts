@@ -16,11 +16,13 @@ export class UsersService {
   constructor(private http: HttpClient, private godService: GodService) { }
 
   public establishExhibitConnection(): void {
-    this.godService.openNewExhibitConnection();
+    if (!this.godService.connection()) {
+      this.godService.openNewExhibitConnection();
+    }
   }
 
-  getUsers(): Observable<User[]> {
-    this.godService.getAllUsers();
+  getUsers(mode: string): Observable<User[]> {
+    this.godService.getAllUsers(mode);
     return of(USRLIST);
   }
 }
